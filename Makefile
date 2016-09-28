@@ -2,6 +2,7 @@
 # Makefile for easter
 #
 
+
 EXEC=easter
 CC=gcc
 CFLAGS=-Wall
