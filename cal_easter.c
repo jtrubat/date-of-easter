@@ -8,7 +8,7 @@
  	
  out:	
  	m:	month (3 or 4)
- 	d:	day (with decimals)
+ 	d:	day 
  	
  returns:	 
  	0

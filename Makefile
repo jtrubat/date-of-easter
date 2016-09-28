@@ -13,7 +13,7 @@ LEXFILE=
 YACCFILE=
 
 # Object files
-OBJECTS=$(EXEC).o cal_easter.o help.o
+OBJECTS=$(EXEC).o cal_easter.o
 
 # Executable
 $(EXEC):	$(INCLUDES) $(OBJECTS)
@@ -25,9 +25,6 @@ $(EXE).o:	$(EXEC).c
 cal_easter.o:	cal_easter.c
 		$(CC) $(CFLAGS) -c cal_easter.c
 
-help.o:		help.c
-		$(CC) $(CFLAGS) -c help.c
-		
 # Clean object files
 .PHONY: clean
 clean:
