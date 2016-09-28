@@ -68,16 +68,17 @@ int main(int argc, char *argv[])  {
         }
     } while(next_option!=-1);
 
-    /* year as parameter */	
-    if(optind<argc) {
+    /* read years */	
+    while(optind<argc) {
         year=atoi(argv[optind]);
-    }
-    
-    /* compute and print date of easter */
-    for(i=-before;i<after+1;i++)  {
-      cal_easter(year+i,&month,&day);     
-      printf("%s %2d %d\n",months[month-3],day,year+i);
-    }
+
+        /* compute and print date of easter */
+        for(i=-before;i<after+1;i++)  {
+          cal_easter(year+i,&month,&day);     
+          printf("%s %2d %d\n",months[month-3],day,year+i);
+        }
+        optind++;
+    }    
 	
     return EXIT_SUCCESS;
 }
