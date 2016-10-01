@@ -6,6 +6,7 @@
 #define NAME "easter"
 #define VERSION "1.0.0"
 #define AUTHOR "Jordi Trubat"
+#define MAIL "jtrubat@uoc.edu"
 
 /* headers */
 int compute_easter(int, int *, int *);
