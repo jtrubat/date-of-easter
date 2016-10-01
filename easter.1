@@ -1,0 +1,85 @@
+.\" Manpage for easter.
+.\" Process with
+.\" groff -man -Tascii easter.1
+.\" groff -t -e -mandoc -Tps easter.1 > easter.ps
+.\" Contact jtrubat@uoc.edu to correct errors or typos.
+.TH man 1 "29 September 2016" "1.0" "easter man page"
+.SH NAME
+\fBeaster\fR displays the date of Easter.
+.SH SYNOPSIS
+\fBeaster\fR [-13yhv] [-B \fInumber\fR] [-A \fInumber\fR] [\fIyear\fR] ...
+.SH DESCRIPTION
+\fBeaster\fR displays the date of easter for a given year - list of years. If
+arguments are not specified, the date for the current year is displayed.
+.SH OPTIONS
+.IP \fB-y\fR
+Display the date of Easter for the specified year. Without argument the current
+year is implied.
+.IP \fB-3\fR
+Display the previous, current and next date of Easter surrounding the specified
+year.
+.IP \fB-1\fR
+Display only date of Easter for the current year. This is the default.
+.TP
+.BI \-A " number"
+Years to add after. The specified number of years is added to the end of the
+display. This is in addition to any date range selected by the -y, -3, or -1
+options.
+.TP
+.BI \-B " number"
+Years to add before. The specified number of years is added to the beginning of
+the display. This is in addition to any date range selected by the -y, -3, or
+-1 options.
+.TP
+.B "-h, --help"
+Print this usage and exit.
+.TP
+.B "-v, --version"
+Print version information and exit. 
+.SH EXAMPLES
+Assuming current year is 2016:
+.LP
+$ easter
+.br
+March 27 2016
+.LP
+$ easter -y 2000
+.br
+April 23 2000
+.LP
+$ easter 2005 2010 2015
+.br
+April 23 2000
+.br
+April  4 2010
+.br
+April  5 2015
+.LP
+$ easter -3
+.br
+April  5 2015
+.br
+March 27 2016
+.br
+April 16 2017
+.LP
+$ easter 2000 -A5
+.br
+April 23 2000
+.br
+April 15 2001
+.br
+March 31 2002
+.br
+April 20 2003
+.br
+April 11 2004
+.br
+March 27 2005
+.SH AUTHOR
+Jordi Trubat.
+.SH REPORTING BUGS
+Report bugs to <jtrubat@uoc.edu>
+.SH SEE ALSO
+.BR ncal (1)
+
