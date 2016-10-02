@@ -143,6 +143,9 @@ int compute_easter(int year, int *month, int *day)  {
 void print_version(FILE *stream,int exit_code)
 {
   fprintf(stream,"%s %s\n",NAME,VERSION);
+  fprintf(stream,
+  "Copyright (C) 2016 Free Software Foundation, Inc. <http://fsf.org/>\n"
+  "This is free software with ABSOLUTELY NO WARRANTY.\n");
   fprintf(stream, "Written by %s.\n",AUTHOR); 
   exit(exit_code);  
 }
