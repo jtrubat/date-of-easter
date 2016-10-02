@@ -1,3 +1,10 @@
+/*
+ PROGRAM: easter. Displays the date of Easter.
+ AUTHOR: Jordi Trubat.
+ COPYRIGHT: Copyright (C) 2016 Free Software Foundation, Inc. <http://fsf.org/>
+ This is free software with ABSOLUTELY NO WARRANTY.
+*/
+
 #include "stdio.h"
 #include "stdlib.h"
 #include "time.h"
