@@ -11,14 +11,18 @@
 #include "getopt.h"
 
 #define NAME "easter"
-#define VERSION "1.0.0"
+#define VERSION "1.0.1"
 #define AUTHOR "Jordi Trubat"
 #define MAIL "jtrubat@uoc.edu"
+#define TRUE 1
+#define FALSE 0
 
 /* headers */
-int compute_easter(int, int *, int *);
+int gregorian_easter(int, int *, int *);
+int julian_easter(int, int *, int *);
 void print_version(FILE *,int);
 void print_usage(FILE * ,int );
+void print_help(FILE * ,int );
  
  /* main */
 int main(int argc, char *argv[])  {
@@ -28,16 +32,18 @@ int main(int argc, char *argv[])  {
     struct tm loc=*locp;
     char* months[]={"March","April"};    
     int year,month,day;
+    int julian=FALSE;
     int after=0;
     int before=0;
     int i;
     
     /* cli options */
     int next_option;
-    const char* const short_options="hvy13A:B:";
+    const char* const short_options="hvyj13A:B:";
     const struct option long_options[]= {
       {"help",0,NULL,'h'},
       {"version",0,NULL,'v'},
+      {"julian",0,NULL,'j'},
       {NULL,2,&year,'y'},
       {NULL,0,NULL,'1'},
       {NULL,0,NULL,'3'},
@@ -50,12 +56,15 @@ int main(int argc, char *argv[])  {
         next_option=getopt_long(argc,argv,short_options,long_options,NULL);
         switch(next_option)  {
      case 'h':
-        print_usage(stdout,0);
+        print_help(stdout,0);
         break;
      case 'v':
         print_version(stdout,0);
         break;
      case 'y':
+        break;   
+     case 'j':
+        julian=TRUE;
         break;   
      case '1':
         before=0;
@@ -88,7 +97,11 @@ int main(int argc, char *argv[])  {
 
         /* compute, print date of easter */
         for(i=-before;i<after+1;i++)  {
-          compute_easter(year+i,&month,&day);     
+          if( (year+i>=1583)&&(!julian) )  {
+             gregorian_easter(year+i,&month,&day);     
+          } else {
+             julian_easter(year+i,&month,&day);     
+          }
           printf("%s %2d %d\n",months[month-3],day,year+i);
         }  
         
@@ -100,7 +113,11 @@ int main(int argc, char *argv[])  {
 
            /* compute, print date of easter */
            for(i=-before;i<after+1;i++)  {
-              compute_easter(year+i,&month,&day);     
+              if( (year+i>=1583)&&(!julian) )  {
+                 gregorian_easter(year+i,&month,&day);     
+              } else {
+                 julian_easter(year+i,&month,&day);     
+              }
               printf("%s %2d %d\n",months[month-3],day,year+i);
            }
         }    
@@ -119,7 +136,7 @@ int main(int argc, char *argv[])  {
  returns:	 
  	0
 */
-int compute_easter(int year, int *month, int *day)  {
+int gregorian_easter(int year, int *month, int *day)  {
 
     int a,b,c,d,e,f,g,h,i,k,l,m,n,p;
 
@@ -145,6 +162,34 @@ int compute_easter(int year, int *month, int *day)  {
 }
 
 /*
+ compute date of Easter (Julian Calendar)
+ in: 
+ 	y: 	year
+ out:	
+ 	m:	month (3 or 4)
+ 	d:	day 
+ returns:	 
+ 	0
+*/
+int julian_easter(int year, int *month, int *day)  {
+
+    int a,b,c,d,e,f,g;
+
+    a=year%4;
+    b=year%7;
+    c=year%19;
+    d=(19*c+15)%30;
+    e=(2*a+4*b-d+34)%7;
+    f=(d+e+114)/31;
+    g=(d+e+114)%31;
+       
+    *month=f;
+    *day=g+1;
+            
+    return EXIT_SUCCESS;
+}
+
+/*
  print version
 */
 void print_version(FILE *stream,int exit_code)
@@ -162,6 +207,18 @@ void print_version(FILE *stream,int exit_code)
 */
 void print_usage(FILE *stream,int exit_code)
 {
+  fprintf(stream,
+    "Usage: easter [general options] [-hjy] [year] ...\n"
+    "General options: [-31] [-A years] [-B years]\n");
+  exit(exit_code);    
+}
+
+/*
+ print help
+*/
+
+void print_help(FILE *stream,int exit_code)
+{
   fprintf(stream,"Usage: %s options\n",NAME);
   fprintf(stream,
     "  -y                 Display the date of Easter for the specified year.\n"
@@ -170,6 +227,7 @@ void print_usage(FILE *stream,int exit_code)
     "                     surrounding the specified year.\n\n"
     "  -1                 Display only date of Easter for the current year.\n"
     "                     This is the default.\n\n"
+    "  -j  --julian       Force Julian calendar.\n\n"
     "  -A number          Years to add after. The specified number of years is\n"
     "                     added to the end of the display. This is in addition\n"
     "                     to any date range selected by the -y, -3, or -1 options.\n\n"
