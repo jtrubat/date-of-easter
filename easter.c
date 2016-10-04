@@ -9,6 +9,7 @@
 #include "stdlib.h"
 #include "time.h"
 #include "getopt.h"
+#include "limits.h"
 
 #define NAME "easter"
 #define VERSION "1.0.1"
@@ -21,6 +22,7 @@
 int gregorian_easter(int, int *, int *);
 int julian_easter(int, int *, int *);
 void print_version(FILE *,int);
+void print_err0();
 void print_usage(FILE * ,int );
 void print_help(FILE * ,int );
  
@@ -97,6 +99,7 @@ int main(int argc, char *argv[])  {
 
         /* compute, print date of easter */
         for(i=-before;i<after+1;i++)  {
+          if(year+i < 1) print_err0();
           if( (year+i>=1583)&&(!julian) )  {
              gregorian_easter(year+i,&month,&day);     
           } else {
@@ -113,6 +116,7 @@ int main(int argc, char *argv[])  {
 
            /* compute, print date of easter */
            for(i=-before;i<after+1;i++)  {
+              if(year+i < 1) print_err0();
               if( (year+i>=1583)&&(!julian) )  {
                  gregorian_easter(year+i,&month,&day);     
               } else {
@@ -201,6 +205,16 @@ void print_version(FILE *stream,int exit_code)
   fprintf(stream, "Written by %s.\n",AUTHOR); 
   exit(exit_code);  
 }
+
+/*
+ print err0
+*/
+void print_err0()
+{
+  fprintf(stderr,"%s: year not in range 1..%d\n",NAME,INT_MAX);
+  exit(1);    
+}
+
 
 /*
  print usage
