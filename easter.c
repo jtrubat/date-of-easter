@@ -21,6 +21,7 @@
 /* headers */
 int gregorian_easter(int, int *, int *);
 int julian_easter(int, int *, int *);
+int is_num_str(char *);
 void print_version(FILE *,int);
 void print_err0();
 void print_usage(FILE * ,int );
@@ -112,6 +113,7 @@ int main(int argc, char *argv[])  {
     
         /* read arguments */
         while(optind<argc) {
+           if(!is_num_str(argv[optind])) print_usage(stderr,1); 
            year=atoi(argv[optind++]);
 
            /* compute, print date of easter */
@@ -191,6 +193,17 @@ int julian_easter(int year, int *month, int *day)  {
     *day=g+1;
             
     return EXIT_SUCCESS;
+}
+
+int is_num_str(char *str)
+{
+
+  char c;
+  int i=0;
+
+  while( (c=str[i++])!='\0' )
+    if(c<'0'|| c>'9') return 0;
+  return 1;  
 }
 
 /*
