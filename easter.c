@@ -12,7 +12,7 @@
 #include "limits.h"
 
 #define NAME "easter"
-#define VERSION "1.0.2"
+#define VERSION "1.0.3"
 #define AUTHOR "Jordi Trubat"
 #define MAIL "jtrubat@uoc.edu"
 #define TRUE 1
