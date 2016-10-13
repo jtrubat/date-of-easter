@@ -5,27 +5,7 @@
  This is free software with ABSOLUTELY NO WARRANTY.
 */
 
-#include "stdio.h"
-#include "stdlib.h"
-#include "time.h"
-#include "getopt.h"
-#include "limits.h"
-
-#define NAME "easter"
-#define VERSION "1.0.3"
-#define AUTHOR "Jordi Trubat"
-#define MAIL "jtrubat@uoc.edu"
-#define TRUE 1
-#define FALSE 0
-
-/* headers */
-int gregorian_easter(int, int *, int *);
-int julian_easter(int, int *, int *);
-int is_num_str(char *);
-void print_version(FILE *,int);
-void print_err0();
-void print_usage(FILE * ,int );
-void print_help(FILE * ,int );
+#include "easter.h"
  
  /* main */
 int main(int argc, char *argv[])  {
@@ -33,12 +13,10 @@ int main(int argc, char *argv[])  {
     time_t t=time(NULL);
     struct tm *locp=localtime(&t);
     struct tm loc=*locp;
-    char* months[]={"March","April"};    
-    int year,month,day;
+    int year;
     int julian=FALSE;
     int after=0;
     int before=0;
-    int i;
     
     /* cli options */
     int next_option;
@@ -92,122 +70,56 @@ int main(int argc, char *argv[])  {
         }
     } while(next_option!=-1);
 
-    /* no arguments */
+    /* if no arguments */
     if(optind==argc)  {
 
-        /* default year */
+        /* get default year */
         year=1900+loc.tm_year;
-
-        /* compute, print date of easter */
-        for(i=-before;i<after+1;i++)  {
-          if(year+i < 1) print_err0();
-          if( (year+i>=1583)&&(!julian) )  {
-             gregorian_easter(year+i,&month,&day);     
-          } else {
-             julian_easter(year+i,&month,&day);     
-          }
-          printf("%s %2d %d\n",months[month-3],day,year+i);
-        }  
         
+        /* compute, print date of easter */
+        print_easter(year, before, after, julian);
+
     } else {	
     
         /* read arguments */
         while(optind<argc) {
+        
+           /* check arguments */
            if(!is_num_str(argv[optind])) print_usage(stderr,1); 
+           
+           /* for every year */
            year=atoi(argv[optind++]);
 
            /* compute, print date of easter */
-           for(i=-before;i<after+1;i++)  {
-              if(year+i < 1) print_err0();
-              if( (year+i>=1583)&&(!julian) )  {
-                 gregorian_easter(year+i,&month,&day);     
-              } else {
-                 julian_easter(year+i,&month,&day);     
-              }
-              printf("%s %2d %d\n",months[month-3],day,year+i);
-           }
+           print_easter(year, before, after, julian);
         }    
     }	
     return EXIT_SUCCESS;
 }
 
-
 /*
- compute date of Easter (Gregorian Calendar), valid from 1583 on.
- in: 
- 	y: 	year
- out:	
- 	m:	month (3 or 4)
- 	d:	day 
- returns:	 
- 	0
+   print date of easter
 */
-int gregorian_easter(int year, int *month, int *day)  {
-
-    int a,b,c,d,e,f,g,h,i,k,l,m,n,p;
-
-    a=year%19;
-    b=year/100;
-    c=year%100;
-    d=b/4;
-    e=b%4;
-    f=(b+8)/25;
-    g=(b-f+1)/3;
-    h=(19*a+b-d-g+15)%30;
-    i=c/4;
-    k=c%4;
-    l=(32+2*e+2*i-h-k)%7;
-    m=(a+11*h+22*l)/451;
-    n=(h+l-7*m+114)/31;
-    p=(h+l-7*m+114)%31;
-    
-    *month=n;
-    *day=p+1;
-            
-    return EXIT_SUCCESS;
-}
-
-/*
- compute date of Easter (Julian Calendar)
- in: 
- 	y: 	year
- out:	
- 	m:	month (3 or 4)
- 	d:	day 
- returns:	 
- 	0
-*/
-int julian_easter(int year, int *month, int *day)  {
-
-    int a,b,c,d,e,f,g;
-
-    a=year%4;
-    b=year%7;
-    c=year%19;
-    d=(19*c+15)%30;
-    e=(2*a+4*b-d+34)%7;
-    f=(d+e+114)/31;
-    g=(d+e+114)%31;
-       
-    *month=f;
-    *day=g+1;
-            
-    return EXIT_SUCCESS;
-}
-
-int is_num_str(char *str)
+void print_easter(int year, int before, int after, int julian)
 {
 
-  char c;
-  int i=0;
+    char* months[]={"March","April"};    
+    int month,day;
+    int i;
 
-  while( (c=str[i++])!='\0' )
-    if(c<'0'|| c>'9') return 0;
-  return 1;  
+   for(i=-before;i<after+1;i++)  {
+      if(year+i < 1) print_err0();
+      if( (year+i>=1583)&&(!julian) )  {
+          gregorian_easter(year+i,&month,&day);     
+      } else {
+          julian_easter(year+i,&month,&day);     
+      }
+      printf("%s %2d %d\n",months[month-3],day,year+i);
+   }
 }
 
 /*
- print version
+   print version
 */
 void print_version(FILE *stream,int exit_code)
 {
@@ -220,7 +132,7 @@ void print_version(FILE *stream,int exit_code)
 }
 
 /*
- print err0
+   print err0
 */
 void print_err0()
 {
@@ -230,7 +142,7 @@ void print_err0()
 
 
 /*
- print usage
+   print usage
 */
 void print_usage(FILE *stream,int exit_code)
 {
@@ -241,7 +153,7 @@ void print_usage(FILE *stream,int exit_code)
 }
 
 /*
- print help
+   print help
 */
 
 void print_help(FILE *stream,int exit_code)
