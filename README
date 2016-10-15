@@ -1,0 +1,123 @@
+1. easter - Linux utility that displays the date of Easter for a given year -
+   list of years.
+
+2. Project website:
+
+   <https://github.com/jtrubat/date-of-easter>
+
+3. Included files:
+
+   - easter.h: headers file
+   - easter.c: main program
+   - compute.c: routines for computing date of Easter
+   - utils.c: auxiliary routines
+   - easter.1: man page
+   - easter.ps: man page in Postcript format
+   - easter.pdf: man page in Portable Document Format
+   - Makefile
+   - this README
+
+4. Installation
+
+   1. Copy the file easter-version.tar.gz in a temporary directory
+
+   2. Untar the file:
+      $ tar xzvf easter-version.tar.gz
+
+   3. Run make:
+      $ make
+
+   4. As root, make sure there is a directory named /usr/local/man/man1. Then
+      run:
+      $ make install
+
+   To uninstall the program run, also as root:
+   $ make uninstall  
+    
+5. Usage	
+
+   easter displays the date of easter for a given year - list of years. If
+   arguments are not specified, the date for  the  current  year  is  displayed.
+
+   OPTIONS
+       -y     Display the date of Easter for the specified year. Without argu‐
+              ment the current year is implied.
+
+       -j, --julian
+              Julian Easter. For year before 1583 this is the default.
+
+       -3     Display the previous, current and next date of Easter  surround‐
+              ing the specified year.
+
+       -1     Display  only  date  of Easter for the current year. This is the
+              default.
+
+       -A number
+              Years to add after. The specified number of years  is  added  to
+              the  end  of  the display. This is in addition to any date range
+              selected by the -y, -3, or -1 options.
+
+       -B number
+              Years to add before. The specified number of years is  added  to
+              the  beginning  of  the display. This is in addition to any date
+              range selected by the -y, -3, or -1 options.
+
+       -h, --help
+              Print this usage and exit.
+
+       -v, --version
+              Print version information and exit.
+
+6. Examples
+
+      Assuming current year is 2016:
+
+       $ easter
+       March 27 2016
+
+       $ easter -y 2000
+       April 23 2000
+
+       $ easter 2005 2010 2015
+       April 23 2000
+       April  4 2010
+       April  5 2015
+
+       $ easter -3
+       April  5 2015
+       March 27 2016
+       April 16 2017
+
+       $ easter 2000 -A5
+       April 23 2000
+       April 15 2001
+       March 31 2002
+       April 20 2003
+       April 11 2004
+       March 27 2005
+
+       $ easter 900
+       April 20 900
+
+       $ easter -j 2000
+       April 17 2000
+
+7. License and author info
+
+    Easter. Displays the date of Easter.
+    Copyright (C) 2016 Jordi Trubat.
+
+    Easter is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Easter is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    The author can be contacted at <jtrubat@uoc.edu>

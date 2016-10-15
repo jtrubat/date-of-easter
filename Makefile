@@ -61,4 +61,10 @@ install:
 		cp --remove-destination $(EXEC).1 $(MANPAGEDIR)/$(EXEC).1
 		gzip -f $(MANPAGEDIR)/$(EXEC).1
 
+# make uninstall
+.PHONY: uninstall
+uninstall:
+		rm $(INSTALLDIR)/$(EXEC)
+		rm $(MANPAGEDIR)/$(EXEC).1.gz
+
 

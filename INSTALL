@@ -1,0 +1,17 @@
+Install easter
+
+   1. Copy the file easter-version.tar.gz in a temporary directory
+
+   2. Untar the file:
+      $ tar xzvf easter-version.tar.gz
+
+   3. Run make:
+      $ make
+
+   4. As root, make sure there is a directory named /usr/local/man/man1. Then
+      run:
+      $ make install
+
+   To uninstall the program run, also as root:
+   $ make uninstall  
+    
