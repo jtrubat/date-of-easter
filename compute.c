@@ -1,9 +1,22 @@
 /*
- PROGRAM: easter. Displays the date of Easter.
- AUTHOR: Jordi Trubat.
- COPYRIGHT: Copyright (C) 2016 Free Software Foundation, Inc. <http://fsf.org/>
- This is free software with ABSOLUTELY NO WARRANTY.
+    This file is part of Easter.
+
+    Easter is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Easter is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    The author can be contacted at <jtrubat@uoc.edu>
 */
+
 #include "easter.h"
 
 /*
@@ -13,11 +26,9 @@
  out:	
  	m:	month (3 or 4)
  	d:	day 
- returns:	 
- 	0
 */
-int gregorian_easter(int year, int *month, int *day)  {
-
+void gregorian_easter(int year, int *month, int *day)
+{
     int a,b,c,d,e,f,g,h,i,k,l,m,n,p;
 
     a=year%19;
@@ -37,8 +48,6 @@ int gregorian_easter(int year, int *month, int *day)  {
     
     *month=n;
     *day=p+1;
-            
-    return EXIT_SUCCESS;
 }
 
 /*
@@ -48,11 +57,9 @@ int gregorian_easter(int year, int *month, int *day)  {
  out:	
  	m:	month (3 or 4)
  	d:	day 
- returns:	 
- 	0
 */
-int julian_easter(int year, int *month, int *day)  {
-
+void julian_easter(int year, int *month, int *day)
+{
     int a,b,c,d,e,f,g;
 
     a=year%4;
@@ -65,7 +72,5 @@ int julian_easter(int year, int *month, int *day)  {
        
     *month=f;
     *day=g+1;
-            
-    return EXIT_SUCCESS;
 }
 
