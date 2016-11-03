@@ -43,8 +43,15 @@
        -y     Display the date of Easter for the specified year. Without argu‐
               ment the current year is implied.
 
-       -j, --julian
-              Julian Easter. For year before 1583 this is the default.
+       -w, --western
+              Western Easter after gregorian calendar. For year 1583 on this is the
+              default.
+
+       -o, --orthodox
+              Orthodox Easter after gregorian calendar.
+
+       -H, --header
+              Display headers for Western, Eastern or Julian Easter.
 
        -3     Display the previous, current and next date of Easter  surround‐
               ing the specified year.
@@ -99,8 +106,11 @@
        $ easter 900
        April 20 900
 
-       $ easter -j 2000
-       April 17 2000
+       $ easter -woH 2000 -3
+       Western		Eastern		
+       April  4 1999	April 11 1999	
+       April 23 2000	April 30 2000	
+       April 15 2001	April 15 2001	
 
 7. License and author info
 

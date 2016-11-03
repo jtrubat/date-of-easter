@@ -29,20 +29,16 @@ LEXFILE=
 YACCFILE=
 
 # Object files
-OBJECTS=$(EXEC).o compute.o utils.o
+#OBJECTS=$(EXEC).o compute.o utils.o error.o
+OBJECTS=easter.o
 		
 # Executable
 $(EXEC):	$(INCLUDES) $(OBJECTS)
 		$(CC) $(CFLAGS) $(OBJECTS) $(SLIBS) -o $@
         
-$(EXE).o:	$(EXEC).c
-		$(CC) $(CFLAGS) -c $(EXEC).c
+#main.o:	main.c
+#		$(CC) $(CFLAGS) -c main.c
 		
-compute.o:	compute.c
-		$(CC) $(CFLAGS) -c compute.c
-
-utils.o:	utils.c
-		$(CC) $(CFLAGS) -c utils.c
 
 # Clean object files
 .PHONY: clean

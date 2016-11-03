@@ -15,11 +15,11 @@
 .\"     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 .\"     
 .\"     The author can be contacted at <jtrubat@uoc.edu>
-.TH EASTER 1 "3 October 2016" "1.0" "easter man page"
+.TH EASTER 1 "3 November 2016" "1.1" "easter man page"
 .SH NAME
 \fBeaster\fR - Displays the date of Easter.
 .SH SYNOPSIS
-\fBeaster\fR [ -13yjhv ] [-A \fInumber\fR] [-B \fInumber\fR] [ \fIyear ...\fR ]
+\fBeaster\fR [ -13ywojhHv ] [-A \fInumber\fR] [-B \fInumber\fR] [ \fIyear ...\fR ]
 .SH DESCRIPTION
 \fBeaster\fR displays the date of easter for a given year - list of years. If
 arguments are not specified, the date for the current year is displayed.
@@ -28,8 +28,18 @@ arguments are not specified, the date for the current year is displayed.
 Display the date of Easter for the specified year. Without argument the current
 year is implied.
 .TP
+.B "-w, --western"
+Western Easter after gregorian calendar. For year 1583 on this is the
+default.
+.TP
+.B "-o, --orthodox"
+Orthodox Easter after gregorian calendar.
+.TP
 .B "-j, --julian"
 Julian Easter. For year before 1583 this is the default.
+.TP
+.B "-H, --header"
+Display headers for Western, Eastern or Julian Easter.
 .IP \fB-3\fR
 Display the previous, current and next date of Easter surrounding the specified
 year.
@@ -39,12 +49,16 @@ Display only date of Easter for the current year. This is the default.
 .BI \-A " number"
 Years to add after. The specified number of years is added to the end of the
 display. This is in addition to any date range selected by the -y, -3, or -1
-options.
+options. Negative numbers are allowed, in which case the specified number of
+years is subtracted. For example,  "easter -y -B-2" produces the same
+results as "easter -y -A2": shows Easter date for the current year and the next
+two following years.
 .TP
 .BI \-B " number"
 Years to add before. The specified number of years is added to the beginning of
-the display. This is in addition to any date range selected by the -y, -3, or
--1 options.
+the display. See
+.BI \-A 
+for examples.
 .TP
 .B "-h, --help"
 Print this usage and exit.
@@ -99,6 +113,22 @@ April 20 900
 $ easter -j 2000
 .br
 April 17 2000
+.LP
+$ easter -o 2000
+.br
+April 30 2000
+.LP
+$ easter -woH -A3 2000
+.br
+Western		Orthodox
+.br
+April 23 2000	April 30 2000	
+.br
+April 15 2001	April 15 2001	
+.br
+March 31 2002	May    5 2002	
+.br
+April 20 2003	April 27 2003	
 .SH AUTHOR
 Jordi Trubat.
 .SH REPORTING BUGS

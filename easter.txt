@@ -1,0 +1,117 @@
+EASTER(1)                       easter man page                      EASTER(1)
+
+
+
+NAME
+       easter - Displays the date of Easter.
+
+SYNOPSIS
+       easter [ -13ywojhHv ] [-A number] [-B number] [ year ... ]
+
+DESCRIPTION
+       easter displays the date of easter for a given year - list of years. If
+       arguments are not specified, the date for  the  current  year  is  dis-
+       played.
+
+OPTIONS
+       -y     Display the date of Easter for the specified year. Without argu-
+              ment the current year is implied.
+
+       -w, --western
+              Western Easter after gregorian calendar. For year 1583  on  this
+              is the default.
+
+       -o, --orthodox
+              Orthodox Easter after gregorian calendar.
+
+       -j, --julian
+              Julian Easter. For year before 1583 this is the default.
+
+       -H, --header
+              Display headers for Western, Eastern or Julian Easter.
+
+       -3     Display  the previous, current and next date of Easter surround-
+              ing the specified year.
+
+       -1     Display only date of Easter for the current year.  This  is  the
+              default.
+
+       -A number
+              Years  to  add  after. The specified number of years is added to
+              the end of the display. This is in addition to  any  date  range
+              selected  by  the  -y,  -3,  or -1 options. Negative numbers are
+              allowed, in which case the specified number  of  years  is  sub-
+              tracted.  For  example,   "easter  -y  -B-2"  produces  the same
+              results as "easter -y -A2": shows Easter date  for  the  current
+              year and the next two following years.
+
+       -B number
+              Years  to  add before. The specified number of years is added to
+              the beginning of the display. See -A for examples.
+
+       -h, --help
+              Print this usage and exit.
+
+       -v, --version
+              Print version information and exit.
+
+EXAMPLES
+       Assuming current year is 2016:
+
+       $ easter
+       March 27 2016
+
+       $ easter -y 2000
+       April 23 2000
+
+       $ easter 2005 2010 2015
+       April 23 2000
+       April  4 2010
+       April  5 2015
+
+       $ easter -3
+       April  5 2015
+       March 27 2016
+       April 16 2017
+
+       $ easter 2000 -A5
+       April 23 2000
+       April 15 2001
+       March 31 2002
+       April 20 2003
+       April 11 2004
+       March 27 2005
+
+       $ easter 900
+       April 20 900
+
+       $ easter -j 2000
+       April 17 2000
+
+       $ easter -o 2000
+       April 30 2000
+
+       $ easter -woH -A3 2000
+       Western        Orthodox
+       April 23 2000  April 30 2000
+       April 15 2001  April 15 2001
+       March 31 2002  May    5 2002
+       April 20 2003  April 27 2003
+
+AUTHOR
+       Jordi Trubat.
+
+REPORTING BUGS
+       Report bugs to <jtrubat@uoc.edu>
+
+COPYRIGHT
+       Copyright (C) 2016 Free Software Foundation, Inc. <http://fsf.org/>
+       This is free software with ABSOLUTELY NO WARRANTY.
+
+SEE ALSO
+       ncal(1)
+
+
+
+
+1.1                             3 November 2016                      EASTER(1)
